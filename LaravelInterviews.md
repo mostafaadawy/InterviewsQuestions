@@ -395,67 +395,72 @@ protected $routeMiddleware = [
 ];
 ```
 The $middleware property contains a list of middleware that will be run for every request, while the $middlewareGroups property contains middleware that can be applied to specific routes. The $routeMiddleware property contains middleware that can be used to protect specific routes.
-What is the difference between GET and POST methods in Laravel?
+## What is the difference between GET and POST methods in Laravel?
 
 In Laravel, GET and POST methods are used to handle HTTP requests. The main difference between them is how the data is transmitted and how the server responds to the request.
-GET Method
+### GET Method
 The GET method is used to retrieve data from the server. When a GET request is made, the parameters are sent in the URL. For example:
-
+```sh
 GET http://example.com/api/users?status=active
+```
 In this example, the status parameter is sent as part of the URL.
 The server responds to a GET request by sending the requested data in the response body. This can be in the form of HTML, JSON, or any other format that the client supports.
 In Laravel, GET routes are defined in the routes/web.php file.
-
+```sh
 Route::get('/users', function () {
     // retrieve data and return response
 });
-POST Method
+```
+### POST Method
 The POST method is used to submit data to the server. When a POST request is made, the data is sent in the request body. For example:
-
+```sh
 POST http://example.com/api/users
 Content-Type: application/json
-
 {
     "name": "John Doe",
-"email": "johndoe@example.com",
-"password": "secret"
+    "email": "johndoe@example.com",
+    "password": "secret"
 }"
+```
 In this example, the user's name, email, and password are sent in the request body as JSON.
 The server responds to a POST request by processing the submitted data and returning a response. This can be in the form of HTML, JSON, or any other format that the client supports.
 In Laravel, POST routes are defined in the routes/web.php file.
-
+```sh
 Route::post('/users', function () {
     // process submitted data and return response
 });
-What is the purpose of the app/Http/Controllers/Auth directory in Laravel?
+```
+## What is the purpose of the `app/Http/Controllers/Auth` directory in Laravel?
 
 The app/Http/Controllers/Auth directory in Laravel contains the authentication controllers that are used to handle user authentication in the application.
 These controllers are responsible for handling the user login and registration process, resetting passwords, and managing user sessions. They are built on top of Laravel's built-in authentication system, which provides a flexible and secure way to manage user authentication.
 The Auth directory contains several sub-directories that contain the authentication controllers and related views:
-•	LoginController: This controller handles user login and session management.
-•	RegisterController: This controller handles user registration.
-•	ForgotPasswordController: This controller handles resetting a user's password.
-•	ResetPasswordController: This controller handles the actual password reset process.
-•	VerificationController: This controller handles email verification for newly registered users.
-•	Views: This directory contains the Blade views that are used to display the authentication forms and related pages.
-By default, Laravel includes these controllers and views when you generate a new application using the make:auth command.
-
+- `LoginController`: This controller handles user login and session management.
+- `RegisterController`: This controller handles user registration.
+- `ForgotPasswordController`: This controller handles resetting a user's password.
+- `ResetPasswordController`: This controller handles the actual password reset process.
+- `VerificationController`: This controller handles email verification for newly registered users.
+- `Views`: This directory contains the Blade views that are used to display the authentication forms and related pages.
+By default, Laravel includes these controllers and views when you generate a new application using the `make:auth` command.
+```sh
 php artisan make:auth
+```
 This command generates the necessary authentication controllers, views, and routes for a basic authentication system. You can customize these controllers and views as needed to match the requirements of your application.
-How do you define a route in Laravel?
+## How do you define a route in Laravel?
 
-In Laravel, routes are defined in the routes/web.php file for web routes, and in the routes/api.php file for API routes.
-To define a route in Laravel, you use the Route facade. The Route facade provides several methods for defining different types of routes, such as get, post, put, patch, delete, and more.
+In Laravel, routes are defined in the `routes/web.php` file for web routes, and in the `routes/api.php` file for API routes.
+`To define a route in Laravel`, you `use the Route facade`. The Route facade provides several methods for defining different types of routes, such as `get, post, put, patch, delete, and more`.
 Here's an example of a simple GET route:
-
+```sh
 use Illuminate\Support\Facades\Route;
 
 Route::get('/hello', function () {
     return 'Hello, world!';
 });
+```
 In this example, we define a GET route that responds with the string "Hello, world!" when the /hello URL is requested.
 We can define more complex routes that accept parameters and use controller actions, like this:
-
+```sh
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -464,27 +469,29 @@ Route::get('/users/{id}', [UserController::class, 'show']);
 Route::post('/users', [UserController::class, 'store']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'destroy']);
+```
 In this example, we define several routes that are handled by the UserController class. The index method handles the /users GET route, the show method handles the /users/{id} GET route, the store method handles the /users POST route, and so on.
-What is the difference between a web and an API route in Laravel?
+## What is the difference between a web and an API route in Laravel?
 
-In Laravel, web and API routes are used to differentiate between routes that are meant for serving HTML pages and those that are meant for serving data in JSON format.
+In Laravel, web and API routes are used to differentiate between routes that are meant for `serving HTML pages` and those that are meant for `serving data in JSON` format.
 Web routes are used for serving web pages that are rendered on the server and sent to the client as HTML. These routes typically use server-side rendering and are used to build traditional web applications.
-API routes are used for serving data in JSON format that can be consumed by client-side applications or other APIs. These routes typically use client-side rendering and are used to build single-page applications or mobile applications that use APIs to interact with the server.
+API routes are used for serving data in JSON format that can be consumed by client-side applications or other APIs. These routes typically use client-side rendering and are used to build `single-page applications or mobile applications` that use APIs to interact with the server.
 The main differences between web and API routes in Laravel are:
-•	Web routes use server-side rendering and return HTML, while API routes use client-side rendering and return JSON.
-•	Web routes are defined in the routes/web.php file, while API routes are defined in the routes/api.php file.
-•	Web routes use the web middleware group, which provides session management, CSRF protection, and other features, while API routes use the api middleware group, which provides rate limiting, authentication, and other API-specific features.
-•	Web routes are typically accessed through a web browser, while API routes are typically accessed through HTTP requests made by client-side applications or other APIs.
+- Web routes use server-side rendering and return HTML, while API routes use client-side rendering and return JSON.
+- Web routes are defined in the routes/web.php file, while API routes are defined in the routes/api.php file.
+- Web routes use the web middleware group, which provides session management, CSRF protection, and other features, while API routes use the api middleware group, which provides rate limiting, authentication, and other API-specific features.
+- Web routes are typically accessed through a web browser, while API routes are typically accessed through HTTP requests made by client-side applications or other APIs.
 Here's an example of a web route:
-
+```sh
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+```
 In this example, we define a web route that responds with the welcome Blade view when the root URL is requested. This view is rendered on the server and sent to the client as HTML.
 Here's an example of an API route:
-
+```sh
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -492,61 +499,68 @@ Route::get('/users', function () {
     $users = User::all();
     return response()->json($users);
 });
+```
 In this example, we define an API route that responds with a JSON representation of all users in the database when the /users URL is requested. This data is returned as JSON and can be consumed by client-side applications or other APIs.
-How do you use the Blade template engine in Laravel?
+## How do you use the Blade template engine in Laravel?
 
 Blade is the default template engine in Laravel. It provides a simple yet powerful way of writing templates for your application. Here is an example of how to use Blade:
-1.	Create a new Blade template file in the resources/views directory with a .blade.php extension.
-2.	Inside the template file, you can write HTML and use Blade's syntax to embed PHP code. For example, you can use {{ $variable }} to output a variable's value or @if (condition) ... @endif to conditionally render content.
-3.	To render the template in a controller, you can use the view() helper function. For example, to render a template called welcome.blade.php:
-
+1. Create a new Blade template file in the resources/views directory with a .blade.php extension.
+2. Inside the template file, you can write HTML and use Blade's syntax to embed PHP code. For example, you can use `{{ $variable }}` to `output a variable's value` or `@if (condition) ... @endif to conditionally render content`.
+3. To render the template in a controller, you can `use the view() helper function`. For example, to render a template called welcome.blade.php:
+```sh
 public function welcome()
 {
     return view('welcome');
 }
-1.	You can pass data to the template using the second argument of the view() function. For example:
-
+```
+4. You can pass data to the template using the second argument of the view() function. For example:
+```sh
 public function hello()
 {
     $name = 'John Doe';
     return view('hello', ['name' => $name]);
 }
+```
 In the hello.blade.php template file, you can now use the $name variable like this: Hello, {{ $name }}!
-What is the purpose of the public directory in Laravel?
+## What is the purpose of the `public directory` in Laravel?
 
-The public directory is the web root of your Laravel application. It contains the index.php file, which is the entry point for all HTTP requests. All public assets (such as images, CSS, and JavaScript files) should be stored in the public directory.
-What is the role of the routes/web.php file in Laravel?
+The public directory `is the web root of your Laravel application`. It `contains` the `index.php file`, `which is the entry point` for all HTTP requests. All `public assets (such as images, CSS, and JavaScript files)` should be stored in the public directory.
+## What is the role of the routes/web.php file in Laravel?
 
 The routes/web.php file contains all the routes for your Laravel application that are accessible through the web. It is where you define the HTTP routes for your application, including the URI, HTTP verb, and the controller method to handle the request.
-Here's an example of a route defined in the routes/web.php file: Route::get('/hello', 'HelloController@index');
+Here's an example of a route defined in the routes/web.php file: `Route::get('/hello', 'HelloController@index');`
 
 This defines a route for the URI /hello with the HTTP verb GET. When this route is accessed, the index() method of the HelloController will be executed.
-How do you use the DB facade to interact with the database in Laravel?
+## How do you use the DB facade to interact with the database in Laravel?
 
 The DB facade provides a simple and easy-to-use interface to interact with the database in Laravel. Here's an example of how to use it:
-1.	First, make sure that the database connection is properly configured in the .env file.
-2.	In a controller or another class, import the DB facade:
-
+1. First, make sure that the database connection is properly configured in the .env file.
+2. In a controller or another class, import the DB facade:
+```sh
 use Illuminate\Support\Facades\DB;
-1.	To perform a simple query, you can use the select() method of the DB facade:
-
+```
+3. To perform a simple query, you can use the select() method of the DB facade:
+```sh
 $results = DB::select('select * from users where id = ?', [1]);
+```
 This will retrieve all rows from the users table where the id column equals 1.
-1.	To insert data into the database, use the insert() method:
-
+4. To insert data into the database, use the insert() method:
+```sh
 DB::insert('insert into users (name, email, password) values (?, ?, ?)', ['John Doe', 'john@example.com', 'password']);
+```
 This will insert a new row into the users table with the given data.
-1.	You can also use the update() and delete() methods to modify or delete data:
-
+5. You can also use the update() and delete() methods to modify or delete data:
+```sh
 DB::update('update users set name = ? where id = ?', ['Jane Doe', 1]);
 
 DB::delete('delete from users where id = ?', [1]);
-What is the purpose of the app/Http/Requests/Auth directory in Laravel?
+```
+## What is the purpose of the app/Http/Requests/Auth directory in Laravel?
 
 The app/Http/Requests/Auth directory contains the request classes for authentication-related requests in Laravel. These classes are used to validate the input data for authentication-related requests, such as login and registration forms.
 By default, Laravel provides two request classes in this directory: LoginRequest and RegisterRequest. These classes extend the FormRequest class, which provides a convenient way to validate form input data using rules and messages.
 Here's an example of a LoginRequest class:
-
+```sh
 <?php
 
 namespace App\Http\Requests\Auth;
@@ -572,50 +586,57 @@ class LoginRequest extends FormRequest
         ];
     }
 }
-In this example, the rules() method defines the validation rules for the email and password fields, while the messages() method defines custom error messages for each rule.
+```
+In this example, the `rules()` method defines the validation rules for the email and password fields, while the `messages()` method defines` custom error messages` for each rule.
 To use this request class in a controller, you can simply type-hint it in the controller method:
-
+```sh
 use App\Http\Requests\Auth\LoginRequest;
 
 public function login(LoginRequest $request)
 {
     // The request is validated, you can access the input data using $request->input()
 }
+```
 Laravel will automatically validate the request input data using the rules defined in the request class. If the validation fails, Laravel will redirect the user back to the previous page with the validation errors.
-What is a named route in Laravel and how is it used?
+## What is a named route in Laravel and how is it used?
 
-A named route is a way to give a unique name to a route in Laravel. It provides a convenient way to refer to a route in your application without hard-coding the URL.
+A named route is a way to give a unique name to a route in Laravel. `It provides a convenient way to refer to a route in your application without hard-coding the URL`.
 To give a name to a route, you can use the name() method when defining the route:
-
+```sh
 Route::get('/users', 'UserController@index')->name('users.index')
+```
 In this example, the name of the route is users.index.
 You can then use this named route in your application using the route() function:
-
+```sh
 $url = route('users.index');
+```
 This will return the URL for the users.index route. You can also pass parameters to the named route by passing an array of parameters as the second argument:
-
+```sh
 $url = route('users.show', ['id' => 1]);
+```
 In this example, the id parameter is passed to the users.show route.
-How do you pass data from a controller to a view in Laravel?
+## How do you pass data from a controller to a view in Laravel?
 
 To pass data from a controller to a view in Laravel, you can use the view() function and pass an array of data as the second argument:
-
+```sh
 public function index()
 {
     $users = User::all();
     return view('users.index', ['users' => $users]);
 }
+```
 In this example, the index() method of the UserController passes an array of User objects to the users.index view.
 In the view, you can access the data using the keys of the array. For example:
-
+```sh
 @foreach ($users as $user)
     <li>{{ $user->name }}</li>
 @endforeac
+```
 This will output a list of all the user names in the $users array.
-How do you use the request object in Laravel?
+## How do you use the request object in Laravel?
 
 The request object provides a convenient way to access the input data of a request in Laravel. You can access the request object in a controller method by adding a parameter of type Illuminate\Http\Request:
-
+```sh
 use Illuminate\Http\Request;
 
 public function store(Request $request)
@@ -624,17 +645,19 @@ public function store(Request $request)
     $email = $request->input('email');
     // ...
 }
+```
 In this example, the store() method of the UserController controller accesses the name and email input fields of the request using the input() method of the request object.
 You can also access the request data using dynamic properties of the request object. For example:
-
+```sh
 $name = $request->name;
 $email = $request->email;
-This is equivalent to using the input() method.
-What is a global middleware in Laravel and how is it used?
+```
+This is ***`equivalent to using the input()`*** method.
+## What is a global middleware in Laravel and how is it used?
 
-A global middleware is a middleware that applies to all HTTP requests in Laravel. It provides a way to add common functionality to all requests, such as authentication and authorization.
-To register a global middleware in Laravel, you can add it to the $middleware array in the App\Http\Kernel class:
-
+A global middleware is a middleware that applies to all HTTP requests in Laravel. It provides a way to `add common functionality to all requests`, `such as authentication and authorization`.
+`To register a global middleware` in Laravel, you can `add` it `to` the `$middleware array` `in` the `App\Http\Kernel` class:
+```sh
 protected $middleware = [
     \App\Http\Middleware\EncryptCookies::class,
     \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
@@ -643,81 +666,94 @@ protected $middleware = [
     \App\Http\Middleware\VerifyCsrfToken::class,
     \App\Http\Middleware\CustomMiddleware::class, // Global middleware
 ];
+```
 In this example, the CustomMiddleware class is a global middleware that will be applied to all HTTP requests in the application.
 Global middleware can also be applied to specific routes using the middleware() method when defining the route:
-
+```sh
 Route::get('/admin', 'AdminController@index')->middleware('auth');
+```
 In this example, the auth middleware will be applied to the AdminController@index route, in addition to any global middleware.
-How do you use route model binding in Laravel?
+## How do you use ***`route model binding`*** in Laravel?
 
 Route model binding is a way to automatically inject a model instance into a controller method based on the route parameter. For example, if you have a User model and a route that expects a user_id parameter, you can use route model binding to automatically fetch the User instance from the database and pass it to the controller method:
-
+```sh
 Route::get('/users/{user}', 'UserController@show');
-In this example, the {user} parameter in the route expects a User model instance. To enable route model binding for the User model, you can add a getRouteKeyName() method to the model:
-
+```
+In this example, the {user} parameter in the route expects a User model instance. <span style="color:red">To enable route model binding for the User model, you can add a `getRouteKeyName()` method to the model</span>:
+```sh
 public function getRouteKeyName()
 {
     return 'username';
 }
-In this example, the getRouteKeyName() method tells Laravel to use the username column in the users table to find the User instance.
-In the controller method, you can then type-hint the User instance and Laravel will automatically fetch the User instance based on the username route parameter:
-
+```
+In this example, <span style="color:red">the getRouteKeyName() method tells Laravel to use the username column in the users table to find the User instance</span>.
+`In the controller method`, you can then <span style="color:red"> type-hint the User instance and Laravel will automatically fetch the User instance based on the username route parameter</span>:
+```sh
 public function show(User $user)
 {
     return view('users.show', ['user' => $user]);
 }
-How do you use the route caching in Laravel?
+```
+## How do you ***`use the route caching`*** in Laravel?
 
-Route caching is a way to improve the performance of your Laravel application by caching the routes instead of dynamically generating them on each request. To use route caching, you can run the route:cache Artisan command:
-
+`Route caching is a way to improve the performance` of your Laravel application `by caching the routes instead of dynamically generating them on each request`. To use route caching, you can `run` the `route:cache Artisan command`:
+```sh
 php artisan route:cache
-This command will generate a cached file containing the routes in your application. When a request is made,Laravel will read the routes from the cached file instead of dynamically generating them.
+```
+<span style="color:#44ff33">This command will generate a cached file containing the routes in your application. When a request is made,Laravel will read the routes from the cached file instead of dynamically generating them</span>.
 Route caching can significantly improve the performance of your application, especially if you have a large number of routes.
-Note that if you make changes to your routes, you will need to clear the route cache by running the route:clear Artisan command:
-
+<span style="color:#44ff33">Note that if you make changes to your routes, you will need to clear the route cache by running the route:clear Artisan command</span>:
+```sh
 php artisan route:clear
-How do you use the query builder in Laravel?
+```
+
+## How do you use the ***`query builder`*** in Laravel?
 
 The query builder is a way to build SQL queries using a fluent interface in Laravel. It provides a simple and convenient way to interact with the database without writing raw SQL queries.
 Here's an example of using the query builder to fetch all users from the users table:
-
+```sh
 use Illuminate\Support\Facades\DB;
 
 $users = DB::table('users')->get();
-In this example, the DB::table('users') method returns a QueryBuilder instance for the users table, and the get() method fetches all the rows from the table.
+```
+In this example, the `DB::table('users')` method returns a QueryBuilder instance for the users table, and the get() method fetches all the rows from the table.
 You can also chain methods to build more complex queries. For example, to fetch all active users ordered by name:
-
+```sh
 $users = DB::table('users')
             ->where('status', 'active')
             ->orderBy('name', 'asc')
             ->get();
+```
 In this example, the where() method adds a condition to the query, the orderBy() method specifies the ordering of the results, and the get() method fetches the results.
-What is the difference between using a model and a query builder in Laravel?
+## What is the difference between using a model and a query builder in Laravel?
 
 In Laravel, a model is an object-oriented representation of a database table, while the query builder is a way to build SQL queries using a fluent interface.
 The main difference between using a model and a query builder is that a model provides a higher level of abstraction over the database table, allowing you to interact with the data in a more object-oriented way. For example, a model can have methods that encapsulate complex queries, and it can also provide relationships between different tables.
 Here's an example of using a model to fetch all users from the users table:
-
+```sh
 use App\Models\User;
 
 $users = User::all();
+```
 In this example, the User model represents the users table, and the all() method fetches all the rows from the table.
 You can also use the query builder with a model to build more complex queries. For example, to fetch all active users ordered by name using a model:
-
+```sh
 $users = User::where('status', 'active')
              ->orderBy('name', 'asc')
              ->get();
+```
 In this example, the where() and orderBy() methods are part of the query builder interface, but they are called on the User model instance.
-What is the purpose of the app/Models directory in Laravel?
+## What is the purpose of the ***`app/Models directory`*** in Laravel?
 
 The app/Models directory in Laravel is a recommended convention for organizing your model classes. By default, Laravel puts the model classes in the app directory, but this can lead to clutter as your application grows.
 By moving your model classes to the app/Models directory, you can keep them separate from other classes in your application and make it easier to manage them.
-To create a model in the app/Models directory, you can use the --model option when generating a new migration:
-
+To create a model in the app/Models directory, you can use the `--model` option when generating a new migration:
+```sh
 php artisan make:model Models/User --migration
-In this example, the make:model command generates a new User model class in the app/Models directory, along with a new migration file.
-You can also manually move an existing model class to the app/Models directory if you prefer. Just make sure to update the namespace of the class to reflect the new directory:
-
+```
+In this example, the `make:model` command generates a new User model class in the app/Models directory, along with a new migration file.
+You can also manually `move` an `existing` model class `to` the `app/Models` directory if you prefer. Just make `sure` to `update the namespace` of the class to reflect the new directory:
+```sh
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -726,26 +762,29 @@ class User extends Model
 {
     //
 }
-By default, the User model class extends the Illuminate\Database\Eloquent\Model class, which provides a number of useful methods and features for working with the database.
+```
+By default, the User model class extends the `Illuminate\Database\Eloquent\Model` class, which provides a number of useful methods and features for working with the database.
 Once you have defined a model, you can use it to interact with the database in a more object-oriented way:
-
+```sh
 use App\Models\User;
 
 $user = User::find(1);
 
 $user->name = 'John Doe';
 $user->save();
+```
 In this example, the find() method is used to fetch a user by its ID, and then the name attribute is updated and saved back to the database using the save() method.
-Laravel Intermediate Interview Questions
-What is middleware in Laravel and how is it used?
+
+## What is middleware in Laravel and how is it used?
 
 Middleware in Laravel is a mechanism for intercepting HTTP requests and responses. It acts as a filter or a bridge between the request and the application, allowing you to modify or inspect the request and take appropriate actions based on the request's content. Middleware can be used for tasks such as authentication, session management, logging, and more.
 Laravel comes with several built-in middleware, including the auth middleware for authentication, the throttle middleware for rate limiting, and the csrf middleware for CSRF protection.
-To create a new middleware in Laravel, you can use the make:middleware Artisan command:
-
+To create a new middleware in Laravel, you can use the `make:middleware` Artisan command:
+```sh
 php artisan make:middleware MyMiddleware
+```
 This will generate a new middleware class in the app/Http/Middleware directory. The class will have a handle method, which is where you can define the middleware's behavior:
-
+```sh
 <?php
 
 namespace App\Http\Middleware;
@@ -761,28 +800,34 @@ class MyMiddleware
         return $next($request);
     }
 }
-In the handle method, you can perform any necessary logic, such as checking if the user is authenticated or checking the request for certain parameters. If the middleware needs to terminate the request, it can return a response directly. Otherwise, it should call the $next closure to pass the request on to the next middleware in the pipeline.
-To register middleware, you can use the $middleware property of the app/Http/Kernel.php file. For example, to add the MyMiddleware to the global middleware pipeline, you would add it to the protected $middleware array:
-
+```
+<span style="color:#44ff33">In the handle method, you can perform any necessary logic, such as checking if the user is authenticated or checking the request for certain parameters. `If the middleware needs to terminate the request, it can return a response directly`. `Otherwise`, it `should call the $next closure to pass the request on to the next middleware in the pipeline`</span>.
+To `register` middleware, you can `use the $middleware property of the app/Http/Kernel.php` file. For example, to add the MyMiddleware to the global middleware pipeline, you would add it to the protected $middleware array:
+```sh
 protected $middleware = [
     \App\Http\Middleware\MyMiddleware::class,
     // other middleware...
 ];
+```
 You can also register middleware on specific routes or groups of routes by using the middleware method on a route definition:
-
+```sh
 Route::get('/dashboard', function () {
     // ...
 })->middleware('auth');
+```
 In this example, the auth middleware will be applied only to the /dashboard route. You can also chain multiple middleware together by passing an array to the middleware method:
-
+```sh
 Route::get('/dashboard', function () {
     // ...
 })->middleware(['auth', 'throttle:5,1']);
+```
 This will apply both the auth and throttle middleware to the route.
-What is dependency injection in Laravel and how is it used?
-View answer 
+
+## What is **`dependency injection`** in Laravel and how is it used?
+
 Dependency injection is a design pattern that allows objects to be passed as dependencies to other objects. In Laravel, dependency injection is used extensively to manage dependencies between different parts of an application.
-To use dependency injection in Laravel, you can define the dependencies in the constructor of a class. For example, consider the following class:
+`To use dependency injection` in Laravel, you can `define the dependencies in the constructor of a class`. For example, consider the following class:
+```sh
 class MyClass
 {
     protected $dependency;
@@ -798,37 +843,44 @@ class MyClass
         $this->dependency->doSomething();
     }
 }
+```
 In this example, the MyClass constructor takes an instance of the DependencyClass as an argument. This allows the MyClass instance to use the methods of the DependencyClass instance in its own methods.
 When you create an instance of the MyClass class, Laravel will automatically inject an instance of the DependencyClass class into the constructor:
-
+```sh
 $myClass = new MyClass();
 $myClass->myMethod();
+```
 In this example, Laravel will automatically create an instance of the DependencyClass and pass it to the constructor of the MyClass instance.
-You can also use dependency injection with Laravel's service container, which allows you to register classes and their dependencies as services. To do this, you can use the bind method of the service container:
-
+You <span style="color:#44ff33"> can also use dependency injection with Laravel's service container, which allows you to register classes and their dependencies as services</span>. `To do this, you can use the bind method of the service container`:
+```sh
 app()->bind('MyClass', function ($app) {
     return new MyClass($app->make('DependencyClass'));
 });
-This registers the MyClass class as a service and defines its dependency on the DependencyClass class. You can then retrieve an instance of the MyClass class from the service container using the make method:
-
+```
+<span style="color:#44ff33">This registers the MyClass class as a service and defines its dependency on the DependencyClass class. You can then retrieve an instance of the MyClass class from the service container using the make method</span>:
+```sh
 $myClass = app()->make('MyClass');
 $myClass->myMethod();
+```
 In this example, Laravel will automatically create an instance of the MyClass class and inject an instance of the DependencyClass class into its constructor.
-What is the difference between Eloquent and Query Builder in Laravel?
+## What is the ***`difference between Eloquent and Query Builder`*** in Laravel?
 
-In Laravel, Eloquent is an Object-Relational Mapping (ORM) tool that provides a simple, easy-to-use way to interact with your database using PHP code. Eloquent allows you to define your database tables as classes and your table rows as objects. Query Builder, on the other hand, provides a more low-level way to build SQL queries using method chaining.
-The main difference between Eloquent and Query Builder is that Eloquent provides a higher-level, more expressive API for interacting with your database, while Query Builder provides a lower-level, more flexible API.
-Here's an example of using Eloquent to fetch all users from the database:
-
+In Laravel, <span style="color:red"> Eloquent is an Object-Relational Mapping (ORM) tool that provides a simple, easy-to-use way to interact with your database using PHP code. Eloquent allows you to define your database tables as classes and your table rows as objects</span>. <span style="color:#44ff33"> Query Builder, on the other hand, provides a more low-level way to build SQL queries using method chaining</span>.
+The main difference between Eloquent and Query Builder is that ***`Eloquent provides a higher-level, more expressive API for interacting with your database, while Query Builder provides a lower-level, more flexible API`***.
+Here's an example of using `Eloquent` to `fetch all users` from the database:
+```sh
 use App\Models\User;
 
 $users = User::all();
-And here's an example of using Query Builder to fetch all users from the database:
-
+```
+And here's an example of using `Query Builder` to `fetch all users` from the database:
+```sh
 use Illuminate\Support\Facades\DB;
 
 $users = DB::table('users')->get();
-How do you use relationships in Eloquent?
+```
+
+## How do you use relationships in Eloquent?
 
 In Eloquent, relationships are used to define the connections between different database tables. There are three types of relationships in Eloquent: one-to-one, one-to-many, and many-to-many.
 To define a relationship, you add a method to your Eloquent model that returns a relationship instance. For example, if you have a User model that has many Post models, you could define the relationship like this:
@@ -2029,7 +2081,7 @@ class InvoicePaid extends Notification
     }
 }
 What is a view composer in Laravel and how is it used?
-View answer 
+
 A view composer in Laravel is a way to share data across multiple views. It is a callback function that is registered to run when a specific view is rendered. The view composer can be used to bind data to the view, which can then be accessed in the view's template.
 Code example:
 
